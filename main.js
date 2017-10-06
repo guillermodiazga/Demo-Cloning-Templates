@@ -5,43 +5,52 @@ const MainController = (function () {
     
     // Constructor
     constructor: {
-        // Variables / properties
-        var $user         = $('.user'),
-            $userTemplate = $user.clone(),
-            $users        = $('.users'),
-            $newUserBtn   = $('.new-user');
+        var $users        = $('.users'),
+            $newUserBtn   = $('.new-user'),
+            $deleteAllBtn = $('.delete-all'),
+            $user         = $('.user');
         
         // Add events
-        addInitEvents();
+        addEvents();
+        
+        // Clone initial template
+        var $userTemplate = $user.clone(true);
     }
     
     // Add init events
-    function addInitEvents() {
+    function addEvents() {
         $newUserBtn.click(cloneUserEmpty);
-        addEventsToUser($user);
+        $deleteAllBtn.click(deleteAll);
+        addEventsToUser();
     }
     
     // Add events to user
-    function addEventsToUser($user){
+    function addEventsToUser(){
         $user
             .find('.delete').click(deleteUser).end()
             .find('.clone').click(cloneUser);
         
-        // Set attr selected on change select element
-        $user.find('select').change(function(){
-            $(this)
-                .find('option[value="'+this.value+'"]')
-                .attr("selected", "selected");
-        });
+            // Set attr selected on change select element
+            $user.find('select').change(function(){
+                $(this)
+                    .find('option[value="'+this.value+'"]')
+                    .attr("selected", "selected");
+            });
     }
     
     // Clone user empty
     function cloneUserEmpty() {
-        var $newUser = $userTemplate.clone().hide();
+        var $newUser = $userTemplate.clone(true).hide();
         $users.append($newUser);
         $newUser.slideDown();
-        addEventsToUser($newUser);
     }
+    
+     // Delete All Users
+    function deleteAll(e) {
+        e.preventDefault();
+        
+        $users.empty();
+    }  
     
     // Delete User
     function deleteUser(e) {
@@ -49,9 +58,7 @@ const MainController = (function () {
         
         var $user = $(e.target).parents('.user');
         
-        $user
-            .prepend('<h5>Deleting...</h5>')
-            .slideUp( null, null, () => {$user.remove()});
+        $user.fadeOut( null, null, () => {$user.remove()});
     }   
     
     // Clone User
@@ -64,6 +71,7 @@ const MainController = (function () {
         $newUser.slideDown();
     }
     
+    // Public data
     return {
         version: 1
     }
