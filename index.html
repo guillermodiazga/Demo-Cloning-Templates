@@ -12,57 +12,54 @@
     <h1>Cloning HTML elements example </h1>
     <div class="tools alert">
         <button class="new-user btn btn-success">Add new User</button>
+        <button class="delete-all btn btn-danger">Delete All</button>
     </div>
-    <div class="users">
-        <form class="user alert alert-primary" onsubmit="return false;">
-            <label>Create User</label>
-            <div class="form-row align-items-center">
-                <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInput">Name</label>
+    <table>
+        <tr>
+            <th>
+                Create User
+            </th>
+        </tr>
+        <tbody class="users">
+
+            <tr class="user alert alert-primary">
+                <td>
                     <input type="text" class="form-control mb-2 mb-sm-0" id="inlineFormInput" placeholder="User Name">
-                </div>
-                <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup">email</label>
+                </td>
+                <td>
                     <div class="input-group mb-2 mb-sm-0">
                         <div class="input-group-addon">@</div>
                         <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Email">
                     </div>
-                </div>
-                <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup">x</label>
+                </td>
+                <td>
                     <div class="input-group mb-2 mb-sm-0">
                         <div class="input-group-addon">#</div>
-                        <select type="text" class="form-control" id="inlineFormInputGroup" >
-                            <option value="">Select Option</option>
+                        <select type="text" class="form-control" id="inlineFormInputGroup">
+                            <option value="">Select value</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                         </select>
                     </div>
-                </div> 
-                <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup">x</label>
-                    <div class="input-group mb-2 mb-sm-0">
-                        <textarea type="text" class="form-control" id="inlineFormInputGroup" ></textarea>
-                           
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="form-check mb-2 mb-sm-0">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox"> Remember me
-                        </label>
-                    </div>
-                </div>
-                <div class="col-auto alert">
+                </td>
+                <td>
+                    <textarea type="text" class="form-control" id="inlineFormInputGroup" placeholder="Description"></textarea>
+                </td>
+                <td>
+                    <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox"> Admin
+                </label>
+                </td>
+                <td>
                     <button class="delete btn btn-danger">Delete</button>
                     <button class="clone btn btn-primary">Clone</button>
-                </div>
-            </div>
-        </form>
-    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
-<script src="http://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="main.js"></script>
 
 </html>
