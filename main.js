@@ -1,14 +1,17 @@
 'use strict';
 
-// Main module definition
+/**
+ * Module pattern
+ */
+
 const MainController = (function () {
 
     // Constructor
     constructor: {
-        var $users = $('.users'),
-            $newUserBtn = $('.new-user'),
-            $deleteAllBtn = $('.delete-all'),
-            $user = $('.user');
+        var $users        = $('.app-users'),
+            $newUserBtn   = $('.app-new-user'),
+            $deleteAllBtn = $('.app-delete-all'),
+            $user         = $('.app-user');
 
         // Add events
         addEvents();
@@ -27,8 +30,8 @@ const MainController = (function () {
     // Add events to user
     function addEventsToUser() {
         $user
-            .find('.delete').click(deleteUser).end()
-            .find('.clone').click(cloneUser);
+            .find('.app-delete').click(deleteUser).end()
+            .find('.app-clone').click(cloneUser);
 
         // Set attr selected on change select element
         $user.find('select').change(function () {
@@ -63,7 +66,7 @@ const MainController = (function () {
     function deleteUser(e) {
         e.preventDefault();
 
-        var $user = $(e.target).parents('.user');
+        var $user = $(e.target).parents('.app-user');
 
         $user.fadeOut(null, null, () => {
             $user.remove()
@@ -73,7 +76,7 @@ const MainController = (function () {
     // Clone User
     function cloneUser(e) {
         e.preventDefault();
-        var $userToClone = $(e.target).parents('.user'),
+        var $userToClone = $(e.target).parents('.app-user'),
             $newUser = $userToClone.clone(true).hide();
 
         $userToClone.after($newUser);
@@ -97,8 +100,6 @@ const MainController = (function () {
                     $e.next().attr('for', e.id);
                 }
             });
-
-
         });
     }
 
