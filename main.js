@@ -1,69 +1,87 @@
 'use strict';
 
 /**
- * Module pattern
+ * Class pattern
  */
 
-const MainController = (function () {
+new class MainController {
 
     // Constructor
-    constructor: {
-        var $users        = $('.app-users'),
-            $newUserBtn   = $('.app-new-user'),
-            $deleteAllBtn = $('.app-delete-all'),
-            $user         = $('.app-user');
+    constructor() 
+    {
+        var self = this;
+
+        self.$users        = $('.app-users'),
+        self.$newUserBtn   = $('.app-new-user'),
+        self.$deleteAllBtn = $('.app-delete-all'),
+        self.$user         = $('.app-user');
 
         // Add events
-        addEvents();
+        self.addEvents();
 
         // Clone initial template
-        var $userTemplate = $user.clone(true);
+        self.$userTemplate = self.$user.clone(true);
     }
 
     // Add init events
-    function addEvents() {
-        $newUserBtn.click(cloneUserEmpty);
-        $deleteAllBtn.click(deleteAll);
-        addEventsToUser();
+    addEvents() 
+    {
+        var self = this;
+
+        self.$newUserBtn.click((e)=>{self.cloneUserEmpty(e)});
+        self.$deleteAllBtn.click((e)=>{self.deleteAll(e)});
+        self.addEventsToUser();
     }
 
     // Add events to user
-    function addEventsToUser() {
-        $user
-            .find('.app-delete').click(deleteUser).end()
-            .find('.app-clone').click(cloneUser);
+    addEventsToUser() 
+    {
+        var self = this;
+
+        self.$user
+            .find('.app-delete').click((e)=>{self.deleteUser(e)}).end()
+            .find('.app-clone').click((e)=>{self.cloneUser(e)});
 
         // Set attr selected on change select element
-        $user.find('select').change(function () {
+        self.$user.find('select').change(function () {
             $(this)
                 .find('option[value="' + this.value + '"]')
                 .attr("selected", "selected");
         });
 
         // Set attr selected on change select element
-        $user.find('input[type="radio"]').click(function () {
+        self.$user.find('input[type="radio"]').click(function () {
             $(this).attr("checked", "checked");
             $(this).siblings('input[type="radio"]').removeAttr("checked");
         });
     }
 
     // Clone user empty
-    function cloneUserEmpty() {
-        var $newUser = $userTemplate.clone(true).hide();
-        $users.append($newUser);
+    cloneUserEmpty() {
+        var self = this;
+
+        var $newUser = self.$userTemplate.clone(true).hide();
+
+        self.$users.append($newUser);
+
         $newUser.slideDown();
-        reindex();
+
+        self.reindex();
     }
 
     // Delete All Users
-    function deleteAll(e) {
+    deleteAll(e) {
+        var self = this;
+
         e.preventDefault();
 
-        $users.empty();
+        self.$users.empty();
     }
 
     // Delete User
-    function deleteUser(e) {
+    deleteUser(e) {
+        var self = this;
+
         e.preventDefault();
 
         var $user = $(e.target).parents('.app-user');
@@ -74,18 +92,22 @@ const MainController = (function () {
     }
 
     // Clone User
-    function cloneUser(e) {
+    cloneUser(e) {
+        var self = this;
+
         e.preventDefault();
         var $userToClone = $(e.target).parents('.app-user'),
-            $newUser = $userToClone.clone(true).hide();
+            $newUser     = $userToClone.clone(true).hide();
 
         $userToClone.after($newUser);
         $newUser.slideDown();
-        reindex();
+        self.reindex();
     }
 
     // Rename ids
-    function reindex() {
+    reindex() {
+        var self = this;
+
         $.each($('.user'), function (i, e) {
             var $e = $(e),
                 index = $e.index();
@@ -102,9 +124,4 @@ const MainController = (function () {
             });
         });
     }
-
-    // Public data
-    return {
-        version: 1
-    }
-}());
+}();
